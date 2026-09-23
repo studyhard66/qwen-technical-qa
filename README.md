@@ -16,7 +16,9 @@ stage2_sft.py          LoRA SFT（ChatML，只对 answer 计 loss，早停监控
 stage3_dpo.py          手写 DPO：合并 SFT adapter → 挂新 LoRA
         ↓  models/dpo/best（LoRA adapter）
 stage4_inference.py    Base / SFT / DPO 三方生成对比
-```
+        ↓  models/dpo/best（LoRA adapter）
+app.py                 FastAPI 服务化：/api/chat 接口 + 网页 Demo
+}```
 ## 训练配置与结果
 
 ### Stage 2: SFT（LoRA）
@@ -76,6 +78,34 @@ python stage4_inference.py
 ```
 > 模型权重（Qwen/Qwen1.5-1.8B）首次运行自动从 HF 下载，国内可设 `$env:HF_ENDPOINT="https://hf-mirror.com"` 。
 
+## 服务部署（FastAPI）
+
+将 DPO 模型封装为 HTTP 服务，模型启动时只加载一次，浏览器打开即可对话：
+
+```powershell
+python app.py    # 默认加载 DPO 模型，加载约 10s
+```
+
+| 地址 | 用途 |
+|------|------|
+| http://localhost:8000 | 网页聊天 Demo |
+| http://localhost:8000/docs | 自动接口文档（Swagger UI，可在线调试） |
+| http://localhost:8000/health | 健康检查 |
+
+接口调用（PowerShell）：
+
+```powershell
+curl.exe -X POST http://localhost:8000/api/chat -H "Content-Type: application/json" -d "{\"question\": \"MySQL 索引为什么用 B+ 树？\"}"
+```
+
+返回 `answer`（回答）、`latency_s`（延迟）、`n_tokens`（生成 token 数）等字段。
+
+切换加载的模型版本（环境变量 `MODEL_VERSION`，默认 `dpo`）：
+
+```powershell
+$env:MODEL_VERSION="sft"; python app.py   # 可选 dpo / sft / base
+```
+
 ## 目录结构
 
 ```
@@ -84,6 +114,7 @@ python stage4_inference.py
 ├── stage2_sft.py
 ├── stage3_dpo.py
 ├── stage4_inference.py
+├── app.py                  # FastAPI 服务（接口 + 网页 Demo）
 ├── config/prompt_templates.py
 ├── utils/
 ├── data/
