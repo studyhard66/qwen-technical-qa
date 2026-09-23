@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# IDE
+.idea/
+.vscode/
+.claude/
+
+# 模型产物（体积大，可由脚本复现）
+models/
+
+# HF 缓存
+.cache/
+
+# 训练日志
+logs/
+*.bin
+events.out.tfevents.*
+
+# 系统
+Thumbs.db
+.DS_Store

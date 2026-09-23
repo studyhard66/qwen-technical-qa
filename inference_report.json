@@ -1,0 +1,25 @@
+{
+  "skipped": [
+    "flash_attention_comparison (需联网，已跳过)"
+  ],
+  "model_comparison_summary": {
+    "Base": [
+      "Kubernetes 中 Pod 和 Deployment 的区别是什么？",
+      "MySQL 索引为什么用 B+ 树？",
+      "React 中 useEffect 的依赖数组有什么作用？",
+      "Python 中 *args 和 **kwargs 的区别？"
+    ],
+    "SFT": [
+      "Kubernetes 中 Pod 和 Deployment 的区别是什么？",
+      "MySQL 索引为什么用 B+ 树？",
+      "React 中 useEffect 的依赖数组有什么作用？",
+      "Python 中 *args 和 **kwargs 的区别？"
+    ],
+    "DPO": [
+      "Kubernetes 中 Pod 和 Deployment 的区别是什么？",
+      "MySQL 索引为什么用 B+ 树？",
+      "React 中 useEffect 的依赖数组有什么作用？",
+      "Python 中 *args 和 **kwargs 的区别？"
+    ]
+  }
+}
