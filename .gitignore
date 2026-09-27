@@ -24,6 +24,3 @@ events.out.tfevents.*
 # 系统
 Thumbs.db
 .DS_Store
-
-# 个人面试准备
-面试问答清单*
