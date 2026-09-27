@@ -80,7 +80,7 @@ python stage4_inference.py
 
 ## 服务部署（FastAPI）
 
-将 DPO 模型封装为 HTTP 服务，模型启动时只加载一次，浏览器打开即可对话：
+将 DPO 模型封装为 HTTP 服务，模型启动时只加载一次。以下为**本地运行**方式：先在本机启动服务，再通过浏览器访问（localhost 链接仅本机可访问，非在线 Demo）：
 
 ```powershell
 python app.py    # 默认加载 DPO 模型，加载约 10s
