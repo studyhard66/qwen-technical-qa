@@ -92,13 +92,16 @@ python app.py    # 默认加载 DPO 模型，加载约 10s
 | http://localhost:8000/docs | 自动接口文档（Swagger UI，可在线调试） |
 | http://localhost:8000/health | 健康检查 |
 
-接口调用（PowerShell）：
+接口调用（PowerShell，需显式按 UTF-8 发送中文）：
 
 ```powershell
-curl.exe -X POST http://localhost:8000/api/chat -H "Content-Type: application/json" -d "{\"question\": \"MySQL 索引为什么用 B+ 树？\"}"
+$body = @{ question = "MySQL 索引为什么用 B+ 树？" } | ConvertTo-Json
+$bytes = [System.Text.Encoding]::UTF8.GetBytes($body)
+Invoke-RestMethod -Uri http://localhost:8000/api/chat -Method Post `
+  -ContentType "application/json; charset=utf-8" -Body $bytes
 ```
 
-返回 `answer`（回答）、`latency_s`（延迟）、`n_tokens`（生成 token 数）等字段。
+返回 `answer`（回答）、`latency_s`（延迟）、`n_tokens`（生成 token 数）等字段。也可直接打开 /docs 在网页上调试（Try it out → Execute）。
 
 切换加载的模型版本（环境变量 `MODEL_VERSION`，默认 `dpo`）：
 
